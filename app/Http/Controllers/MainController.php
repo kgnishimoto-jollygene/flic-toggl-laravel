@@ -12,9 +12,9 @@ class MainController extends Controller
         $bodyContent = $request->getContent();
 
         $togglToken = $bodyContent;
-        $togglClient = TogglClient::factory(array('api_key' => $toggl_token));
+        $togglClient = TogglClient::factory(array('api_key' => $togglToken));
 
-        $timeEntries = $toggl_client->getTimeEntries();
+        $timeEntries = $togglClient->getTimeEntries();
         $runnigTimeEntries = [];
         foreach ($timeEntries as $timeEntry) {
             if (isset($timeEntry['stop'])) {
@@ -23,13 +23,13 @@ class MainController extends Controller
             $runnigTimeEntries[] = $timeEntry;
         }
         if (count($runnigTimeEntries) === 0) {
-            $toggl_client->startTimeEntry([
+            $togglClient->startTimeEntry([
                 "time_entry" => [
                     "created_with" => "Flic",
                 ],
             ]);
         } else {
-            $toggl_client->stopTimeEntry([
+            $togglClient->stopTimeEntry([
                 "id" => $runnigTimeEntries[0]['id'],
             ]);
         }
