@@ -11,10 +11,8 @@ class MainController extends Controller
     {
         $bodyContent = $request->getContent();
 
-        $toggl_token = $bodyContent; // Fill in your token here
-        $toggl_client = TogglClient::factory(array('api_key' => $toggl_token, 'debug' => true));
-
-        $toggl_client = TogglClient::factory(array('api_key' => $toggl_token));
+        $togglToken = $bodyContent;
+        $togglClient = TogglClient::factory(array('api_key' => $toggl_token));
 
         $timeEntries = $toggl_client->getTimeEntries();
         $runnigTimeEntries = [];
